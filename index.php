@@ -20,7 +20,36 @@
     </style>
 </head>
 <body>
-    <!-- Your content goes here -->
+   <input type="text" id="qr-input" placeholder="Enter URL">
+<button id="generate">Generate QR</button>
+<br><br>
+<img id="qr-code" src="" alt="QR Code">
+<br>
+<a id="download" href="#" download="qr-code.png" style="display:none;">Download QR</a>
+
+<script>
+const input = document.getElementById('qr-input');
+const button = document.getElementById('generate');
+const qrImg = document.getElementById('qr-code');
+const downloadLink = document.getElementById('download');
+
+button.addEventListener('click', () => {
+  if (!input.value) {
+    alert("Please enter a URL!");
+    return;
+  }
+
+  const url = encodeURIComponent(input.value);
+  const qrSrc = `https://api.qrserver.com/v1/create-qr-code/?data=${url}&size=150x150`;
+  
+  qrImg.src = qrSrc;
+
+  // Show download link
+  downloadLink.href = qrSrc;
+  downloadLink.style.display = 'inline-block';
+});
+</script>
+
 
     <!-- Script files at the end of the body -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
